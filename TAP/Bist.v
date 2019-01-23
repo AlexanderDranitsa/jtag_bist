@@ -1,12 +1,5 @@
 module Bist
 #(
-/*
-relation RAM DEPTH = 2 ^ (ADDRESS WIDTH)
-ADDRESS WIDTH = log (base 2) RAM DEPTH.
-The $clog2 system task was added to the SystemVerilog extension to Verilog (IEEE Std 1800-2005). 
-This returns an integer which has the value of the ceiling of the log base 2. 
-The DEPTH need not be a power of 2.
-*/
     parameter DEPTH = 256
     //parameter WIDTH = $clog2(DEPTH);
 )

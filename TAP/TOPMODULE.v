@@ -1,71 +1,46 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    15:16:59 10/28/2018 
-// Design Name: 
-// Module Name:    TOPMODULE 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 module TOPMODULE
 #(
-/*
-relation RAM DEPTH = 2 ^ (ADDRESS WIDTH)
-ADDRESS WIDTH = log (base 2) RAM DEPTH.
-The $clog2 system task was added to the SystemVerilog extension to Verilog (IEEE Std 1800-2005). 
-This returns an integer which has the value of the ceiling of the log base 2. 
-The DEPTH need not be a power of 2.
-*/
+
     parameter DEPTH = 256
     //parameter WIDTH = $clog2(DEPTH)
 )
 (
-    input            TMS       // J20: V14
-,   input            clk       // E12	
-,   input            TCK       // J20: V15
-,   input            TDI       // J20: W16
-,   output reg       TDO       // J20: V16
+    input            TMS        // J20: V14
+,   input            clk        // E12	
+,   input            TCK        // J20: V15
+,   input            TDI        // J20: W16
+,   output reg       TDO        // J20: V16
 
-,   output           TMS_LA    // J18: AA21 : A0
-,   output           TCK_LA    // J18: AB21 : A1
-,   output           TDI_LA    // J18: AA19 : A2
-,   output           TDO_LA    // J18: AB19 : A3
+,   output           TMS_LA     // J18: AA21 : A0
+,   output           TCK_LA     // J18: AB21 : A1
+,   output           TDI_LA     // J18: AA19 : A2
+,   output           TDO_LA     // J18: AB19 : A3
 
-,   output     [3:0] state     // state[0] -> J15: AB3 : I1+ : 9pin  : A4
-										 // state[1] -> J15: AA6 : I2+ : 13pin : A5
-										 // state[2] -> J15: Y7  : I3+ : 21pin : A6
-										 // state[3] -> J15: AA8 : I4+ : 25pin : A7
-										 // �������� GPIO �������� 17 ������������
-                               // ��������� LA: 256 | 50 | 1 | 1
-										 // ��������� A1 Triger �� �������� �����
+,   output     [3:0] state      // state[0] -> J15: AB3 : I1+ : 9pin  : A4
+								// state[1] -> J15: AA6 : I2+ : 13pin : A5
+								// state[2] -> J15: Y7  : I3+ : 21pin : A6
+								// state[3] -> J15: AA8 : I4+ : 25pin : A7
+								// �������� GPIO �������� 17 ������������
+                               	// ��������� LA: 256 | 50 | 1 | 1
+								// ��������� A1 Triger �� �������� �����
 										 
-,   output 	   [7:0] LEDs      // LEDs[7] : W21 : LED7
-										 // LEDs[6] : Y22 : LED6
-										 // LEDs[5] : V20 : LED5
-										 // LEDs[4] : V19 : LED4
-										 // LEDs[3] : U19 : LED3
-										 // LEDs[2] : U20 : LED2
-										 // LEDs[1] : T19 : LED1
-										 // LEDs[0] : R20 : LED0
-,   input      [3:0] TUMBLERS  // SW0 : TUMBLERS[0] : V8										 
-                               // SW1 : TUMBLERS[1] : U10
-										 // SW2 : TUMBLERS[2] : U8
-										 // SW3 : TUMBLERS[3] : T9
+,   output 	   [7:0] LEDs       // LEDs[7] : W21 : LED7
+								// LEDs[6] : Y22 : LED6
+								// LEDs[5] : V20 : LED5
+								// LEDs[4] : V19 : LED4
+								// LEDs[3] : U19 : LED3
+								// LEDs[2] : U20 : LED2
+								// LEDs[1] : T19 : LED1
+								// LEDs[0] : R20 : LED0
+,   input      [3:0] TUMBLERS   // SW0 : TUMBLERS[0] : V8
+                                // SW1 : TUMBLERS[1] : U10
+								// SW2 : TUMBLERS[2] : U8
+								// SW3 : TUMBLERS[3] : T9
 
 );
 
-// �������� ��� �������� � ����������� ������������
 reg [3:0] EXTEST_IO;
 reg [3:0] INTEST_CL;
 
@@ -75,13 +50,11 @@ wire [3:0] BIST_CORE_LOGIC;
 wire [4:0] bist_config_wire;
 wire [4:0] bist_check_wire;
 
-// �������� ������� ��� �����������
 assign TMS_LA = TMS;
 assign TCK_LA = TCK;
 assign TDI_LA = TDI;
 assign TDO_LA = TDO;
 
-// ������� � �������� ����������
 wire		CAPTUREIR;
 wire		SHIFTIR;
 wire		UPDATEIR;
@@ -91,17 +64,14 @@ wire		UPDATEDR;
 wire		TLR;
 wire		enable;
 
-// ������� ��� ������
 wire [3:0] LATCH_JTAG_IR;
 
-// ��� TDO
 wire       INSTR_TDO;
 wire       ID_REG_TDO;
 wire       BYPASS_TDO;
 wire       BSR_TDO;
 wire	   STATUS_BIST_REG_TDO;
 
-// ��������� �������
 wire       IDCODE_SELECT;
 wire       BYPASS_SELECT;
 wire       SAMPLE_SELECT;
@@ -111,7 +81,6 @@ wire	   USERCODE_SELECT;
 wire       RUNBIST_SELECT;
 wire 	   GETTEST_SELECT;
 
-//
 wire [9:0] BSR;
 wire [3:0] CORE_LOGIC;
 wire [7:0] UR_OUT;

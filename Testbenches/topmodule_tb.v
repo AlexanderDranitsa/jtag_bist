@@ -1,27 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   15:00:57 10/28/2018
-// Design Name:   ics
-// Module Name:   /home/de/Documents/JTAG/tap_controller/ics_tb.v
-// Project Name:  tap_controller
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: ics
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module topmodule_tb;
 
 	// Inputs
